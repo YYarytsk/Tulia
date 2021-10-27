@@ -1,0 +1,26 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.button {
+  transition-duration: 0.4s;
+}
+
+.mat-raised-button:hover {
+  background-color: #4CAF50;
+  /* Green */
+  color: white;
+}
+
+.active {
+  background-color: #4CAF50;
+}
+
+.material-icons {
+  padding-top: 8px;
+  padding-right: 5px;
+}
+
+.main-tool-bar {
+  background-color: green;
+}

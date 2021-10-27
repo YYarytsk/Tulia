@@ -1,0 +1,64 @@
+
+<div *ngIf="user">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="col">
+                    <mat-card class="profile-container">
+                        <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
+                        <mat-card-subtitle>Username: {{user.username}} // {{user.role}}</mat-card-subtitle>
+                        <!--
+                        <div>
+                        <button mat-raised-button class="mt-5" color="warn" (click)="delete()">Delete</button>
+                        </div>  -->
+                        
+                    </mat-card>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" *ngIf="user.role==='admin'">
+                    <div *ngIf="userdetail">
+                        <mat-card class="main container">
+                            <mat-card-title>Groups you created</mat-card-title>
+                            <mat-card *ngFor="let group of userdetail.groups" class="container">
+                                <mat-card-subtitle>{{group.groupTitle}}</mat-card-subtitle>
+                                <mat-card-content>
+                                    {{group.description}}
+                                </mat-card-content>
+                            </mat-card>
+                        </mat-card>
+                    </div>
+                </div>  
+                <div>
+                    <mat-card class="main container">
+                        <mat-card-title>My Groups</mat-card-title>
+                        <div *ngIf="userdetail">
+                            <mat-card *ngFor="let Id of Ids; let i= index" class="container">
+                                <mat-card-subtitle *ngIf="groupTitles"><a routerLink="/groupDetail/{{Id}}">{{groupTitles[i]}}</a></mat-card-subtitle>
+                                <mat-card-subtitle ></mat-card-subtitle>
+                            </mat-card>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div 
+gdAreas="header header | side content | footer footer"
+gdGap="16px"
+gdRows="auto auto auto">
+<div gdArea="header">
+  Header
+ </div>
+<div gdArea="side">
+    side
+ </div>
+<div gdArea="content">
+  Content
+</div>
+<div gdArea="footer">
+  Footer
+</div>
+</div> -->

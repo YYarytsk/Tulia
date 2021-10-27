@@ -1,0 +1,11 @@
+
+<div *ngIf="post" class="container">          
+    <mat-card class="post-container">
+        <p class="post-header">{{post.title}}</p>
+        <mat-card-title>{{post.title}}</mat-card-title>
+        <p>{{post.body}}</p>
+        <button mat-raised-button class="mt-5" color="warn" (click)="delete()">Delete</button>
+
+    </mat-card>
+</div>
+

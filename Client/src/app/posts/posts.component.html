@@ -1,0 +1,29 @@
+
+<div class="write-post">
+    <mat-card class="post-input-container">
+        <p></p>
+        <mat-form-field class="post-box" appearance="fill">
+            <mat-label>Write a new post</mat-label>
+        <textarea matInput placeholder="Ex. I'm feeling good..."></textarea>
+          </mat-form-field>
+          <br>
+          <button mat-raised-button color="primary" (click)="submitPost()">Post</button>
+    </mat-card>
+</div>
+
+<div class="post-card-container" *ngFor="let post of posts">
+    <mat-card class="post-container">
+        <p class="post-header">test</p>
+        <mat-card-title>{{post.title}}</mat-card-title>
+        <p>{{post.body}}</p>
+            <form [formGroup]="form" (ngSubmit)="AddComment()">
+                <mat-form-field class="reply-box" appearance="fill">
+                    <mat-label>Leave a comment</mat-label>
+                <textarea formControlName="content" matInput placeholder="Ex. hope you feel better..."></textarea>
+                <input type="number" formControlName="postId" value="{{post.id}}">
+                </mat-form-field>
+                <br>
+                <button mat-raised-button color="primary" [disabled]="loading"><span *ngIf="loading"></span>Reply</button>
+            </form>
+    </mat-card>
+</div>

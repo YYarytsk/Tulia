@@ -1,0 +1,36 @@
+
+<div *ngFor="let group of groups">
+    <!--<mat-card style="box-sizing: content-box;">Group: {{group.groupTitle}}<br> Description: {{group.description}}<br>Number of members: {{group.numberMember}}
+        <br>
+        <button mat-raised-button color="primary">Join</button>
+    </mat-card>-->
+    
+    <mat-card class="example-card">
+        <mat-card-title-group>
+          <mat-card-title>Group: {{group.groupTitle}}</mat-card-title>
+          <mat-card-subtitle>Number of members: {{group.numberMember}}</mat-card-subtitle>
+          <img mat-card-sm-image src="https://i.ibb.co/BsyRtr1/unknown.png" >
+        </mat-card-title-group>
+        <mat-card-content>
+          {{group.description}}
+        </mat-card-content>
+        <!--<input type="number" value="1" matInput formControlName="groupId"/>-->
+        <form class="signup-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="signup-form-padding">
+        <label>Please select confirmed and hit Join to join in the group</label>
+            <select formControlName="groupId" [ngClass]="{ 'is-invalid': submitted && f.groupId.errors}">
+                <option value="">No</option>
+                <option value="{{group.id}}">confirmed</option>
+            </select>
+            <div *ngIf="submitted && f.groupId.errors" class="invalid-feedback">
+                <div *ngIf="f.groupId.errors.required" style="color: red;">Please select "confirmed" on the group you want to join</div>
+            </div>
+        
+        <button mat-raised-button color="primary" [disabled]="loading"><span *ngIf="loading"></span>Join</button>
+        </form>
+    </mat-card>
+     
+      <!--<button mat-raised-button class="mt-5" color="accent" (click)="updateGroup()">Save</button>-->
+    
+</div>
+
+    

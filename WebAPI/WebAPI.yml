@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tulia
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-dns-label-name: tulia-api
+  name: azure-load-balancer
+spec:
+  type: LoadBalancer
+  selector:
+    app: tulia
+    role: api
+  ports:
+  - port: 80
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tulia-backend
+  labels:
+    app: tulia
+    role: api
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: tulia
+      role: api
+  template:
+    metadata:
+      labels:
+        app: tulia
+        role: api
+    spec:
+      imagePullSecrets:
+      - name: tuliaback
+      containers:
+      - name: api
+        image: bacoordinationp3.azurecr.io/tulia/backend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80

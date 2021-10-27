@@ -1,0 +1,101 @@
+<div fxLayoutAlign="center center" fxFlexFill class="main-div">
+    <mat-card fxFlex="75" class="card">
+      
+      <form class="signup-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="signup-form-padding">
+            <p>
+            <mat-form-field appearance="legacy">
+              <mat-label for='firstName'>First Name</mat-label>
+              <input matInput placeholder="First Name" formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+              <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                <mat-error *ngIf="f.firstName.errors.required">First Name is required</mat-error>
+                </div>
+              <mat-icon matSuffix></mat-icon>
+              <mat-hint>Ex: Bob</mat-hint>
+            </mat-form-field>
+            </p>
+            <mat-form-field appearance="legacy">
+                <mat-label for='lastName'>Last Name</mat-label>
+                <input matInput placeholder="Last Name" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+                <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                  <mat-error *ngIf="f.lastName.errors.required">Last Name is required</mat-error>
+                  </div>
+                <mat-icon matSuffix></mat-icon>
+                <mat-hint>Ex: Mac</mat-hint>
+              </mat-form-field>
+            <p>
+                <mat-form-field appearance="legacy">
+                    <mat-label for='username'>UserName</mat-label>
+                    <input matInput placeholder="UserName" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                      <mat-error *ngIf="f.username.errors.required">username is required</mat-error>
+                      </div>
+                    <mat-icon matSuffix></mat-icon>
+                    <mat-hint>Ex: bobmac12</mat-hint>
+                  </mat-form-field>
+            </p>
+            <mat-form-field appearance="legacy">
+                <mat-label for='password'>Password</mat-label>
+                <input type="password" matInput placeholder="Password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                  <mat-error *ngIf="f.password.errors.required">password is required</mat-error>
+                  <mat-error *ngIf="f.password.errors.minlength">Password must be at least 6 characters</mat-error>
+                  </div>
+                <mat-icon matSuffix></mat-icon>
+                <mat-hint>Ex: mac@123</mat-hint>
+              </mat-form-field>
+              <br/>
+            <div class="form-group">
+                <button mat-raised-button color="primary" [disabled]="loading">
+                    <span *ngIf="loading"></span>
+                    Register
+                </button>
+                <!--<a routerLink="../login" class="btn btn-link">Cancel</a>-->
+            </div>
+    </form>
+    </mat-card>
+</div>
+<!--
+<div class="card">
+    <h4>Register</h4>
+    <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+                <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                    <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+                <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                    <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                    <div *ngIf="f.username.errors.required">Username is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                    <div *ngIf="f.password.errors.required">Password is required</div>
+                    <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button [disabled]="loading" class="btn btn-primary">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Register
+                </button>
+                <a routerLink="../login" class="btn btn-link">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+-->

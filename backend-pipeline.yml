@@ -1,0 +1,90 @@
+#Backend 
+trigger:
+- master
+
+pr:
+- master
+- Main-Dev
+
+pool:
+  vmImage: ubuntu-latest
+
+variables: #Path to folders
+  sDir: 'WebAPI'
+  solution: 'WebAPI/*.sln'
+  cReg: '2107-p3-acr-Group2-Tulia'
+
+stages:
+- stage: Install_Build
+  #Runs restores, builds and tests 
+  jobs:
+  #Build and test dotnet code
+    - job: Build_test
+      displayName: Dotnet Build-Test
+      steps:
+      # Force dotnet 5
+      - task: UseDotNet@2
+        displayName: Dotnet SDK 5
+        inputs:
+          packageType: 'sdk'
+          version: '5.x'
+      #Install nuGet
+      - task: NuGetToolInstaller@1
+        inputs:
+          checkLatest: true
+      #Restore Solution
+      - task: NuGetCommand@2
+        inputs:
+          restoreSolution: $(solution)
+      #Build
+      - task: CmdLine@2
+        displayName: Dotnet Build
+        inputs:
+          script: 'dotnet build --configuration Release'
+          workingDirectory: $(sDir)
+      #Test
+      - task: CmdLine@2
+        displayName: Dotnet Tests
+        inputs:
+          script: dotnet test
+            --configuration Release
+            --collect:"XPlat Code Coverage"
+            --results-directory $(Agent.TempDirectory)
+            --
+            DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+          workingDirectory: $(sDir)
+        continueOnError: true
+
+- stage: Docker
+  jobs:
+  #Build and eventally deploy a docker container
+    - job: Docker_Build
+      displayName: Docker Build & Push
+      steps:
+      #Login
+      - task: Docker@2
+        displayName: Login
+        inputs:
+          containerRegistry: $(cReg)
+          command: 'login'
+      #Build
+      - task: Docker@2
+        displayName: Build & Push
+        inputs:
+          containerRegistry: '$(cReg)'
+          repository: 'tulia/backend'
+          command: 'buildAndPush'
+          Dockerfile: '$(sDir)/Dockerfile'
+          tags: 'latest'
+      #Publish artifact
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: '$(sDir)/WebAPI.yml'
+          artifact: 'manifest'
+          publishLocation: 'pipeline'
+      #logout
+      - task: Docker@2
+        displayName: Logout
+        inputs:
+          containerRegistry: $(cReg)
+          command: 'logout'

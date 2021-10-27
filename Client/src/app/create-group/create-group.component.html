@@ -1,0 +1,46 @@
+
+<div class="container">
+    <mat-card fxFlex="75">
+      
+      <form class="signup-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="signup-form-padding">
+            <p>
+            <mat-form-field appearance="legacy">
+              <mat-label for='groupTitle'>Group Title</mat-label>
+              <input matInput placeholder="group Title" formControlName="groupTitle" [ngClass]="{ 'is-invalid': submitted && f.groupTitle.errors }" />
+              <div *ngIf="submitted && f.groupTitle.errors" class="invalid-feedback">
+                <mat-error *ngIf="f.groupTitle.errors.required">Group Title is required</mat-error>
+                </div>
+              <mat-icon matSuffix></mat-icon>
+              <mat-hint>Ex: Entertainment</mat-hint>
+            </mat-form-field>
+             </p>
+            <mat-form-field appearance="fill">
+                <mat-label for='description'>Description</mat-label>
+                <textarea  class="description" matInput placeholder="describe your group" formControlName="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+                <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                  <mat-error *ngIf="f.description.errors.required">description is required</mat-error>
+                  </div>
+                <mat-icon matSuffix></mat-icon>
+                <mat-hint>Ex: chatting, sharing, ...</mat-hint>
+              </mat-form-field>
+              
+              <!--<mat-form-field appearance="legacy">
+                <mat-label for='userId'>User Id</mat-label>
+                <input type="number" matInput placeholder="describe your group" formControlName="userId" [ngClass]="{ 'is-invalid': submitted && f.userId.errors }" />
+                <div *ngIf="submitted && f.userId.errors" class="invalid-feedback">
+                  <mat-error *ngIf="f.userId.errors.required">id is required</mat-error>
+                  </div>
+                <mat-icon matSuffix></mat-icon>
+                <mat-hint>Ex: 1, ...</mat-hint>
+              </mat-form-field>-->
+
+            <div class="form-group">
+                <button mat-raised-button color="primary" [disabled]="loading">
+                    <span *ngIf="loading"></span>
+                    Create
+                </button>
+                <!--<a routerLink="../login" class="btn btn-link">Cancel</a>-->
+            </div>
+    </form>
+    </mat-card>
+</div>
